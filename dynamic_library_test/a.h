@@ -9,6 +9,7 @@
   #define DLLEXPORT __declspec(dllimport)
 #endif
 
-DLLEXPORT void hello_A();
+//DLLEXPORT 
+void hello_A();
 
 #endif

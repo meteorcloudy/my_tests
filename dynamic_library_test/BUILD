@@ -8,14 +8,16 @@ cc_library(
   name = "A",
   srcs = ["a.cc"],
   hdrs = ["a.h"],
-  copts = ["/DCOMPILING_A_DLL"],
-  features = ["no_windows_export_all_symbols"],
+  win_def_file = "AA.def",
+#  copts = ["/DCOMPILING_A_DLL"],
+#  features = ["no_windows_export_all_symbols"],
 )
 
 cc_binary(
   name = "A.so",
   srcs = ["a.cc", "a.h"],
   copts = ["/DCOMPILING_A_DLL"],
+  win_def_file = "AA.def",
   linkshared = 1,
   features = ["no_windows_export_all_symbols"],
 )
