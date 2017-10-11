@@ -147,9 +147,9 @@ def _symlink_genrule_for_dir(repository_ctx, src_dir, dest_dir, genrule_name,
     src_files = files.splitlines()
 
 
-    _python_configure_warning("line count from %s:\n\n%s\n\n" % (repository_ctx.attr.name, len(src_files)))
+    _python_configure_warning("line count:\n\n%s\n\n" % (len(src_files)))
     if len(src_files) != 100 and len(src_files) != 26:
-      _python_configure_fail("Failed")
+      _python_configure_fail("Failed with %s" % len(src_files))
 
   command = []
   outs = []
@@ -271,7 +271,6 @@ def _get_numpy_include(repository_ctx, python_bin):
 
 def _create_local_python_repository(repository_ctx):
   """Creates the repository containing files set up to build with Python."""
-  repository_ctx.execute(["od", "-A", "n", "-t", "d", "-N", "1", "/dev/urandom"], quiet=False)
   python_bin = _get_python_bin(repository_ctx)
   _check_python_bin(repository_ctx, python_bin)
   python_lib = _get_env_var(repository_ctx, _PYTHON_LIB_PATH,
@@ -310,9 +309,7 @@ def _create_remote_python_repository(repository_ctx, remote_config_repo):
 
 def _python_autoconf_impl(repository_ctx):
   """Implementation of the python_autoconf repository rule."""
-
-
-  # repository_ctx.execute(["od", "-A", "n", "-t", "d", "-N", "1", "/dev/urandom"], quiet=False)
+  _python_configure_warning("Starting configure %s" % repository_ctx.attr.name)
 
   if _TF_PYTHON_CONFIG_REPO in repository_ctx.os.environ:
       _create_remote_python_repository(repository_ctx,
