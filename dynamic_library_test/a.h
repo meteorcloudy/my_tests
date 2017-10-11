@@ -1,6 +1,14 @@
 #ifndef A_H
 #define A_H
 
-void hello_A();
+#if NO_DLLEXPORT
+  #define DLLEXPORT
+#elif COMPILING_A_DLL
+  #define DLLEXPORT __declspec(dllexport)
+#else
+  #define DLLEXPORT __declspec(dllimport)
+#endif
+
+DLLEXPORT void hello_A();
 
 #endif
