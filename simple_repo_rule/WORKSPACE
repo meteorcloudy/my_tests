@@ -1,0 +1,2 @@
+load(":repo.bzl", "my_repo")
+my_repo(name = "env_test")
