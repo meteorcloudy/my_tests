@@ -1,0 +1,14 @@
+local_repository(
+    name = "standalone_cc_toolchain",
+    path = "C:/tools/msys64/home/pcloudy/workspace/windows-crosstool",
+)
+
+#http_archive(
+#    name = "standalone_cc_toolchain",
+#    urls = ["https://github.com/meteorcloudy/windows-crosstool/archive/cb52c474fb1f83772b24c063d97c4941c2c577a8.zip"],
+#    strip_prefix = "windows-crosstool-cb52c474fb1f83772b24c063d97c4941c2c577a8",
+#)
+
+load("@standalone_cc_toolchain//:cc_configure.bzl", "cc_configure")
+
+cc_configure()

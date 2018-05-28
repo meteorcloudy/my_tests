@@ -8,7 +8,7 @@ cc_library(
   name = "A",
   srcs = ["a.cc"],
   hdrs = ["a.h"],
-  win_def_file = "AA.def",
+#  win_def_file = "AA.def",
 #  copts = ["/DCOMPILING_A_DLL"],
 #  features = ["no_windows_export_all_symbols"],
 )
@@ -41,7 +41,6 @@ cc_library(
   srcs = ["b.cc"],
   hdrs = ["b.h"],
   deps = [":A"],
-  copts = ["/DNO_DLLEXPORT", "static_link_msvcrt_debug"],
 )
 
 cc_binary(

@@ -10,6 +10,6 @@
 #endif
 
 //DLLEXPORT 
-void hello_A();
+__declspec(dllexport) void hello_A();
 
 #endif
