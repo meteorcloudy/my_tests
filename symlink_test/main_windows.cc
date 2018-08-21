@@ -14,7 +14,7 @@
 
 using namespace std;
 
-void CreateSymlinksOnFiles(int count) {
+void TestSymlinksOnFiles(int count) {
     const wchar_t* target = L"target_file";
     const wchar_t* linkDir = L"links_for_file/";
 
@@ -25,7 +25,7 @@ void CreateSymlinksOnFiles(int count) {
 
     for (int i = 0; i < count; i++) {
         wstring link = wstring(linkDir) + to_wstring(i);
-        if (CreateSymbolicLinkW(link.c_str(), L"target_file", SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE) == 0) {
+        if (CreateSymbolicLinkW(link.c_str(), target, SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE) == 0) {
             wcout << "Error: Symlink creation failed!" << endl;
         }
     }
@@ -52,7 +52,7 @@ void CreateSymlinksOnFiles(int count) {
     printf("Time for deleting %d file symlinks: %lf\n", count, elapsed_secs);
 }
 
-void CreateSymlinksOnDirectories(int count) {
+void TestSymlinksOnDirectories(int count) {
 
     const wchar_t* target = L"target_dir";
     const wchar_t* linkDir = L"links_for_dir/";
@@ -93,7 +93,7 @@ void CreateSymlinksOnDirectories(int count) {
 }
 
 int main() {
-    CreateSymlinksOnFiles(10000);
-    CreateSymlinksOnDirectories(10000);
+    TestSymlinksOnFiles(10000);
+    TestSymlinksOnDirectories(10000);
     return 0;
 }
