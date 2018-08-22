@@ -9,7 +9,7 @@
 #endif
 
 #ifndef SYMBOLIC_LINK_FLAG_DIRECTORY
-#define SYMBOLIC_LINK_FLAG_DIRECTORY 0x2
+#define SYMBOLIC_LINK_FLAG_DIRECTORY 0x1
 #endif
 
 using namespace std;
