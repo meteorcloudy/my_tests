@@ -19,21 +19,25 @@ using namespace std;
 #define SYMBOLIC_LINK_FLAG_DIRECTORY 0x1
 #endif
 
+#define THREAD_POOL_SIZE 12
+
 class Action {
  public:
-  Action(wstring link, wstring target, uint8_t is_dir)
+  Action(vector<wstring> link, vector<wstring> target, vector<uint8_t> is_dir)
   : link_(link), target_(target), is_dir_(is_dir) {}
   void Run();
 
  private:
-  const wstring link_;
-  const wstring target_;
-  const uint8_t is_dir_;
+  const vector<wstring> link_;
+  const vector<wstring> target_;
+  const vector<uint8_t> is_dir_;
 };
 
 void Action::Run() {
-  if (CreateSymbolicLinkW(link_.c_str(), target_.c_str(), is_dir_ | SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE) == 0) {
-    printf("Error: Symlink creation failed!\n");
+  for (int i = 0; i < link_.size(); i++) {
+    if (CreateSymbolicLinkW(link_[i].c_str(), target_[i].c_str(), is_dir_[i] | SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE) == 0) {
+      printf("Error: Symlink creation failed!\n");
+    }
   }
 }
 
@@ -41,7 +45,7 @@ class Executor {
  public:
   static Executor* Create();
   ~Executor() { Finish(); }
-  void Schedule(wstring link, wstring target, uint8_t is_dir);
+  void Schedule(vector<wstring> link, vector<wstring> target, vector<uint8_t> is_dir);
   void Finish();
 
  private:
@@ -76,8 +80,8 @@ Executor* Executor::Create() {
     return nullptr;
   }
 
-  SetThreadpoolThreadMaximum(result->threadpool_, 128);
-  SetThreadpoolThreadMinimum(result->threadpool_, 128);
+  SetThreadpoolThreadMaximum(result->threadpool_, THREAD_POOL_SIZE);
+  SetThreadpoolThreadMinimum(result->threadpool_, THREAD_POOL_SIZE);
 
   InitializeThreadpoolEnvironment(&result->threadpool_env_);
   SetThreadpoolCallbackPool(&result->threadpool_env_, result->threadpool_);
@@ -88,7 +92,7 @@ Executor* Executor::Create() {
   return result.release();  // release pointer ownership
 }
 
-void Executor::Schedule(wstring link, wstring target, uint8_t is_dir) {
+void Executor::Schedule(vector<wstring> link, vector<wstring> target, vector<uint8_t> is_dir) {
 
   unique_ptr<Action> a(new Action(link, target, is_dir));
 
@@ -126,9 +130,16 @@ int main(void) {
     // Create
     clock_t begin = clock();
 
-    for (int i = 0; i < count; i++) {
-        wstring link = wstring(linkDir) + to_wstring(i);
-        executor->Schedule(link, target, 0);
+    for (int i = 0; i <= count / THREAD_POOL_SIZE; i++) {
+      vector<wstring> link_list, target_list;
+      vector<uint8_t> is_dir;
+      for (int j = i * THREAD_POOL_SIZE; j < count && j < (i + 1) * THREAD_POOL_SIZE; j++) {
+        wstring link = wstring(linkDir) + to_wstring(j);
+        link_list.push_back(link);
+        target_list.push_back(target);
+        is_dir.push_back(0);
+      }
+      executor->Schedule(link_list, target_list, is_dir);
     }
 
     executor->Finish();
