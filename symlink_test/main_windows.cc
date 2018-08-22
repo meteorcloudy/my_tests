@@ -93,7 +93,7 @@ void TestSymlinksOnDirectories(int count) {
 }
 
 int main() {
-    TestSymlinksOnFiles(10000);
-    TestSymlinksOnDirectories(10000);
+    TestSymlinksOnFiles(1000);
+    TestSymlinksOnDirectories(1000);
     return 0;
 }
