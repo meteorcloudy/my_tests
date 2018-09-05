@@ -232,7 +232,7 @@ void TestSymlinksOnDirectories(int count) {
 }
 
 int main() {
-    TestSymlinksOnFiles(100000);
-    TestSymlinksOnDirectories(100000);
+    // TestSymlinksOnDirectories(10000);
+    TestSymlinksOnFiles(10000);
     return 0;
 }
