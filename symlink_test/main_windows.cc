@@ -19,48 +19,27 @@
 
 using namespace std;
 
-class SymlinkResolver {
- public:
-  SymlinkResolver();
+// Symbolic Link Reparse Data Buffer is described at:
+// https://msdn.microsoft.com/en-us/library/cc232006.aspx
+typedef struct _ReparseSymbolicLinkData {
+static const int kSize = MAXIMUM_REPARSE_DATA_BUFFER_SIZE;
+ULONG ReparseTag;
+USHORT ReparseDataLength;
+USHORT Reserved;
+USHORT SubstituteNameOffset;
+USHORT SubstituteNameLength;
+USHORT PrintNameOffset;
+USHORT PrintNameLength;
+ULONG Flags;
+WCHAR PathBuffer[1];
+} ReparseSymbolicLinkData;
 
-  // Resolves symlink to its actual path.
-  //
-  // Returns true if `path` is not a symlink and it exists.
-  // Returns true if `path` is a symlink and can be successfully resolved.
-  // Returns false otherwise.
-  //
-  // If `result` is not nullptr and the method returned true, then this will be
-  // reset to point to a new WCHAR buffer containing the resolved path.
-  // If `path` is a symlink, this will be the resolved path, otherwise
-  // it will be a copy of `path`.
-  bool Resolve(const WCHAR* path, std::unique_ptr<WCHAR[]>* result);
+uint8_t reparse_buffer_bytes_[ReparseSymbolicLinkData::kSize];
+ReparseSymbolicLinkData* reparse_buffer_;
 
- private:
-  // Symbolic Link Reparse Data Buffer is described at:
-  // https://msdn.microsoft.com/en-us/library/cc232006.aspx
-  typedef struct _ReparseSymbolicLinkData {
-    static const int kSize = MAXIMUM_REPARSE_DATA_BUFFER_SIZE;
-    ULONG ReparseTag;
-    USHORT ReparseDataLength;
-    USHORT Reserved;
-    USHORT SubstituteNameOffset;
-    USHORT SubstituteNameLength;
-    USHORT PrintNameOffset;
-    USHORT PrintNameLength;
-    ULONG Flags;
-    WCHAR PathBuffer[1];
-  } ReparseSymbolicLinkData;
-
-  uint8_t reparse_buffer_bytes_[ReparseSymbolicLinkData::kSize];
-  ReparseSymbolicLinkData* reparse_buffer_;
-};
-
-SymlinkResolver::SymlinkResolver()
-    : reparse_buffer_(
-          reinterpret_cast<ReparseSymbolicLinkData*>(reparse_buffer_bytes_)) {}
-
-bool SymlinkResolver::Resolve(const WCHAR* path, unique_ptr<WCHAR[]>* result) {
+bool Resolve(const WCHAR* path, unique_ptr<WCHAR[]>* result) {
   DWORD attributes = ::GetFileAttributesW(path);
+  reparse_buffer_ = (ReparseSymbolicLinkData*) reparse_buffer_bytes_;
 
   if (attributes == INVALID_FILE_ATTRIBUTES) {
     // `path` does not exist.
@@ -115,7 +94,7 @@ bool SymlinkResolver::Resolve(const WCHAR* path, unique_ptr<WCHAR[]>* result) {
 
 bool ReadSymlinkW(const wstring& link, wstring* result) {
   unique_ptr<WCHAR[]> result_ptr;
-  if (!SymlinkResolver().Resolve(link.c_str(), &result_ptr)) {
+  if (!Resolve(link.c_str(), &result_ptr)) {
     return false;
   }
   *result = wstring(result_ptr.get());
@@ -233,6 +212,6 @@ void TestSymlinksOnDirectories(int count) {
 
 int main() {
     // TestSymlinksOnDirectories(10000);
-    TestSymlinksOnFiles(10000);
+    TestSymlinksOnFiles(100000);
     return 0;
 }
