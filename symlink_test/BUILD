@@ -7,7 +7,7 @@ config_setting(
 cc_binary(
   name = "bin",
   srcs = select({
-      ":windows" : ["main_windows_threadpool.cc"],
+      ":windows" : ["main_windows.cc"],
       "//conditions:default": ["main_unix.cc"],
   }),
 )
