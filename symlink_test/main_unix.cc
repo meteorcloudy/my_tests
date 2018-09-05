@@ -29,6 +29,21 @@ void TestSymlinks(int count) {
 
     printf("Time for creating %d symlinks: %lf\n", count, elapsed_secs);
 
+    // Resolve
+    begin = clock();
+    char buf[4098];
+    for (int i = 0; i < count; i++) {
+        string link = string(linkDir) + to_string(i);
+        if (readlink(link.c_str(), buf, 4098) == -1) {
+            cout << "Error: Symlink resolving failed!" << endl;
+        }
+    }
+
+    end = clock();
+
+    elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+    printf("Time for resolving %d symlinks: %lf\n", count, elapsed_secs);
+
     // Delete
     begin = clock();
 
