@@ -212,6 +212,6 @@ void TestSymlinksOnDirectories(int count) {
 
 int main() {
     // TestSymlinksOnDirectories(10000);
-    TestSymlinksOnFiles(100000);
+    TestSymlinksOnFiles(10000);
     return 0;
 }
