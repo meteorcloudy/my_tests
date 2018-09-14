@@ -37,7 +37,7 @@ WCHAR PathBuffer[1];
 uint8_t reparse_buffer_bytes_[ReparseSymbolicLinkData::kSize];
 ReparseSymbolicLinkData* reparse_buffer_;
 
-bool Resolve(const WCHAR* path, unique_ptr<WCHAR[]>* result) {
+bool Resolve(const WCHAR* path, wstring* result) {
   DWORD attributes = ::GetFileAttributesW(path);
   reparse_buffer_ = (ReparseSymbolicLinkData*) reparse_buffer_bytes_;
 
@@ -72,12 +72,11 @@ bool Resolve(const WCHAR* path, unique_ptr<WCHAR[]>* result) {
       if (reparse_buffer_->ReparseTag == IO_REPARSE_TAG_SYMLINK) {
         if (result) {
           size_t len = reparse_buffer_->SubstituteNameLength / sizeof(WCHAR);
-          result->reset(new WCHAR[len + 1]);
+          result->resize(len + 1, UNICODE_NULL);
           const WCHAR* substituteName =
               reparse_buffer_->PathBuffer +
               (reparse_buffer_->SubstituteNameOffset / sizeof(WCHAR));
-          wcsncpy_s(result->get(), len + 1, substituteName, len);
-          result->get()[len] = UNICODE_NULL;
+          result->assign(substituteName, len);
         }
         return true;
       }
@@ -86,18 +85,16 @@ bool Resolve(const WCHAR* path, unique_ptr<WCHAR[]>* result) {
   // `path` is a normal file or directory.
   if (result) {
     size_t len = wcslen(path) + 1;
-    result->reset(new WCHAR[len]);
-    memcpy(result->get(), path, len * sizeof(WCHAR));
+    result->resize(len + 1, UNICODE_NULL);
+    result->assign(path, len);
   }
   return true;
 }
 
 bool ReadSymlinkW(const wstring& link, wstring* result) {
-  unique_ptr<WCHAR[]> result_ptr;
-  if (!Resolve(link.c_str(), &result_ptr)) {
+  if (!Resolve(link.c_str(), NULL)) {
     return false;
   }
-  *result = wstring(result_ptr.get());
   return true;
 }
 
