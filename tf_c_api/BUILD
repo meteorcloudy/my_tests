@@ -20,8 +20,8 @@ cc_library(
   name = "tensorflow",
   hdrs = glob(["**/*.h"]),
   deps = [
-      ":libtensorflow",
-      ":libtensorflow_framework",
+      ":libtensorflow_linux",
+      ":libtensorflow_framework_linux",
   ],
   includes = ["include"],
 )
