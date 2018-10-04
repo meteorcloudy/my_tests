@@ -1,6 +1,6 @@
 def _my_rule(ctx):
   args = ctx.actions.args()
-  args.add([], join_with=",")
+  args.add("")
   args.add("hello")
   ctx.actions.run(
       inputs=[],
