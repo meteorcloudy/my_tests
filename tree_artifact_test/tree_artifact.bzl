@@ -5,7 +5,7 @@ def _tree_impl(ctx):
     ctx.action(
         inputs = [],
         outputs = [tree_artifact],
-        command = "mkdir -p $1 && echo '42' > $1/a.txt && echo '43' > $1/b.txt",
+        command = "mkdir -p $1 && " + " && ".join([("echo %s > $1/%s.txt" % (i,i)) for i in range(0, 100)]),
         arguments = [tree_artifact.path],
     )
     return DefaultInfo(files = depset(direct = [tree_artifact]))
