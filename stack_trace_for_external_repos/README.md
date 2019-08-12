@@ -10,7 +10,7 @@ $ bazel sync --experimental_repository_resolved_file=external_repos.py
 
 ### Download this script to your project source root
 ```
-$ wget https://github.com/meteorcloudy/my_tests/blob/master/stack_trace_for_external_ repos/get_repo_def.py
+$ wget https://github.com/meteorcloudy/my_tests/raw/master/stack_trace_for_external_repos/get_repo_def.py
 ```
 
 ### Run the script
