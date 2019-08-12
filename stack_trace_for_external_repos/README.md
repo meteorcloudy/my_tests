@@ -13,8 +13,8 @@ $ bazel sync --experimental_repository_resolved_file=external_repos.py
 $ wget https://github.com/meteorcloudy/my_tests/raw/master/stack_trace_for_external_repos/get_repo_def.py
 ```
 
-### Run the script
+### Run the script with a given repository name
 ```
-$ python get_repo_def.py <repo name>
+$ python get_repo_def.py <repository name>
 ```
 
