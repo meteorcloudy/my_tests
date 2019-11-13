@@ -1,5 +1,3 @@
-exports_files(["a.txt"])
-
 load("//:map_to_output.bzl", "map_to_output")
 
 map_to_output(
