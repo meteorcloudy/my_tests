@@ -45,7 +45,7 @@ def _map_to_output_impl(ctx):
     copy_cmd(ctx, src, dst)
   else:
     copy_bash(ctx, src, dst)
-  return DefaultInfo(files = depset([dst]))
+  return DefaultInfo(files = depset([dst]), runfiles = ctx.runfiles(files = [dst]))
 
 _map_to_output = rule(
   implementation = _map_to_output_impl,
