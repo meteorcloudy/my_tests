@@ -1,0 +1,6 @@
+filegroup(
+  name = "file",
+  srcs = ["file.txt"],
+  visibility = ["//visibility:public"],
+)
+
