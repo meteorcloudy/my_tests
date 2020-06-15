@@ -1,12 +1,9 @@
-"""Provides a rule that outputs a monolithic static library."""
-
 load("@bazel_tools//tools/cpp:toolchain_utils.bzl", "find_cpp_toolchain")
 
-TOOLS_CPP_REPO = "@bazel_tools"
 
 # Bazel rule for collecting the header files that a target depends on.
 def _cc_static_library_impl(ctx):
-    output_lib = ctx.actions.declare_file("{}.a".format(ctx.attr.name))
+    output_lib = ctx.actions.declare_file("{}.lib".format(ctx.attr.name))
     output_flags = ctx.actions.declare_file("{}.link".format(ctx.attr.name))
 
     cc_toolchain = find_cpp_toolchain(ctx)
@@ -34,7 +31,8 @@ def _cc_static_library_impl(ctx):
     ])
 
     script_file = ctx.actions.declare_file("{}.params".format(ctx.attr.name))
-    commands = ["-static", "-o {}".format(output_lib.path)]
+
+    commands = ["/nologo", "/MACHINE:X64", "/OUT:{}".format(output_lib.path)]
     for lib in libs:
         commands.append(lib.path)
     ctx.actions.write(
@@ -42,8 +40,9 @@ def _cc_static_library_impl(ctx):
         content = "\n".join(commands) + "\n",
     )
 
-    ctx.actions.run_shell(
-        command = "{} @{}".format(cc_toolchain.ar_executable, script_file.path),
+    ctx.actions.run(
+        executable = cc_toolchain.ar_executable,
+        arguments = ["@{}".format(script_file.path)],
         inputs = [script_file] + libs + cc_toolchain.all_files.to_list(),
         outputs = [output_lib],
         mnemonic = "ArMerge",
@@ -62,8 +61,8 @@ cc_static_library = rule(
     attrs = {
         "deps": attr.label_list(),
         "_cc_toolchain": attr.label(
-            default = TOOLS_CPP_REPO + "//tools/cpp:current_cc_toolchain",
+            default = @bazel_tools + "@bazel_tools//tools/cpp:current_cc_toolchain",
         ),
     },
-    toolchains = [TOOLS_CPP_REPO + "//tools/cpp:toolchain_type"],
+    toolchains = [@bazel_tools + "@bazel_tools//tools/cpp:toolchain_type"],
 )
