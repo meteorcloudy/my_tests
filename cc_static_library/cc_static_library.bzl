@@ -48,8 +48,8 @@ cc_static_library = rule(
     attrs = {
         "deps": attr.label_list(),
         "_cc_toolchain": attr.label(
-            default = @bazel_tools + "@bazel_tools//tools/cpp:current_cc_toolchain",
+            default = "@bazel_tools//tools/cpp:current_cc_toolchain",
         ),
     },
-    toolchains = [@bazel_tools + "@bazel_tools//tools/cpp:toolchain_type"],
+    toolchains = ["@bazel_tools//tools/cpp:toolchain_type"],
 )
