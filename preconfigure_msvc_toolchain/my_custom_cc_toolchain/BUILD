@@ -48,12 +48,12 @@ cc_toolchain_suite(
     name = "toolchain",
     toolchains = {
         "armeabi-v7a|compiler": ":cc-compiler-armeabi-v7a",
-        "x64_windows|msvc-cl": ":cc-compiler-x64_windows",
+        "x64_x86_windows|msvc-cl": ":cc-compiler-x64_x86_windows",
         "x64_windows|msys-gcc": ":cc-compiler-x64_windows_msys",
         "x64_windows|mingw-gcc": ":cc-compiler-x64_windows_mingw",
         "x64_windows|clang-cl": ":cc-compiler-x64_windows-clang-cl",
         "x64_windows_msys": ":cc-compiler-x64_windows_msys",
-        "x64_windows": ":cc-compiler-x64_windows",
+        "x64_x86_windows": ":cc-compiler-x64_x86_windows",
         "armeabi-v7a": ":cc-compiler-armeabi-v7a",
     },
 )
@@ -173,9 +173,9 @@ toolchain(
 )
 
 cc_toolchain(
-    name = "cc-compiler-x64_windows",
-    toolchain_identifier = "msvc_x64",
-    toolchain_config = ":msvc_x64",
+    name = "cc-compiler-x64_x86_windows",
+    toolchain_identifier = "msvc_x64_x86",
+    toolchain_config = ":msvc_x64_x86",
     all_files = ":empty",
     ar_files = ":empty",
     as_files = ":msvc_compiler_files",
@@ -188,7 +188,7 @@ cc_toolchain(
 )
 
 cc_toolchain_config(
-    name = "msvc_x64",
+    name = "msvc_x64_x86",
     cpu = "x64_windows",
     compiler = "msvc-cl",
     host_system_name = "local",
@@ -196,7 +196,7 @@ cc_toolchain_config(
     target_libc = "msvcrt",
     abi_version = "local",
     abi_libc_version = "local",
-    toolchain_identifier = "msvc_x64",
+    toolchain_identifier = "msvc_x64_x86",
     msvc_env_tmp = "C:\\src\\temp",
     msvc_env_path = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\VC\\Tools\\MSVC\\14.24.28314\\bin\\HostX64\\x86;C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\VC\\Tools\\MSVC\\14.24.28314\\bin\\HostX64\\x64;C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow;C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\MSBuild\\Current\\bin\\Roslyn;C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.18362.0\\x64;C:\\Program Files (x86)\\Windows Kits\\10\\bin\\x64;C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\\\MSBuild\\Current\\Bin;C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319;C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\Common7\\IDE\\;C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\Common7\\Tools\\;;C:\\Windows\\system32;C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin;C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\Ninja",
     msvc_env_include = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\VC\\Tools\\MSVC\\14.24.28314\\include;C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\ucrt;C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\shared;C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\um;C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\winrt;C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\cppwinrt",
@@ -229,16 +229,16 @@ cc_toolchain_config(
 )
 
 toolchain(
-    name = "cc-toolchain-x64_windows",
+    name = "cc-toolchain-x64_x86_windows",
     exec_compatible_with = [
         "@platforms//cpu:x86_64",
         "@platforms//os:windows",
     ],
     target_compatible_with = [
-        "@platforms//cpu:x86_64",
+        "@platforms//cpu:x86_32",
         "@platforms//os:windows",
     ],
-    toolchain = ":cc-compiler-x64_windows",
+    toolchain = ":cc-compiler-x64_x86_windows",
     toolchain_type = "@bazel_tools//tools/cpp:toolchain_type",
 )
 
