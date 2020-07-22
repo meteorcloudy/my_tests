@@ -1,3 +1,3 @@
 @echo off
-call "C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/\VCVARSALL.BAT" amd64 > NUL 
+call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\VCVARSALL.BAT" amd64  -vcvars_ver=14.24.28314 > NUL 
 echo PATH=%PATH%,INCLUDE=%INCLUDE%,LIB=%LIB%,WINDOWSSDKDIR=%WINDOWSSDKDIR% 
