@@ -1,0 +1,1 @@
+build --crosstool_top=//my_custom_cc_toolchain:toolchain --host_crosstool_top=//my_custom_cc_toolchain:toolchain
