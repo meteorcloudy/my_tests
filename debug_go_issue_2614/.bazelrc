@@ -1,0 +1,7 @@
+build --cpu=x64_windows 
+build --compiler=mingw-gcc
+build --extra_toolchains=@local_config_cc//:cc-toolchain-x64_windows_mingw
+build --host_platform=@io_bazel_rules_go//go/toolchain:windows_amd64_cgo
+build --platforms=@io_bazel_rules_go//go/toolchain:windows_amd64_cgo
+build --incompatible_enable_cc_toolchain_resolution
+
