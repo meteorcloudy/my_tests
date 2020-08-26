@@ -1,0 +1,17 @@
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+COMMIT = "1df596c0b7e2ed57b2e1025ddf7d40d9235d7b6d"
+http_archive(
+    name = "io_bazel_rules_go",
+    sha256 = "2697f6bc7c529ee5e6a2d9799870b9ec9eaeb3ee7d70ed50b87a2c2c17e13d9e",
+    strip_prefix = "rules_go-" + COMMIT,
+    urls = [
+        "https://github.com/bazelbuild/rules_go/archive/%s.zip" % COMMIT,
+    ],
+)
+
+load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
+
+go_rules_dependencies()
+
+go_register_toolchains()
