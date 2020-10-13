@@ -1,0 +1,18 @@
+workspace(
+    name = "my_project",
+    repo_deps = ["A"],
+)
+
+local_repository(
+    name = "A",
+    path = "third_party/A",
+    # Should really be repo_deps = ["B"],
+    repo_mapping = {
+        "@B": "@B",
+    }
+)
+
+local_repository(
+    name = "B",
+    path = "third_party/B",
+)
