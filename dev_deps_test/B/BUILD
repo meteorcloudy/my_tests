@@ -1,6 +1,6 @@
 package(default_visibility = ["//visibility:public"])
 
-load("//:def.bzl", "my_cc_test")
+load("@C-dev//:def.bzl", "my_cc_test")
 
 cc_library(
     name = "lib",
