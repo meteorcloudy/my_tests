@@ -1,0 +1,11 @@
+workspace(name = "A")
+
+local_repository(
+    name = "B",
+    path = "../B",
+)
+
+# local_repository(
+#     name = "C-dev",
+#     path = "../C-fake",
+# )
