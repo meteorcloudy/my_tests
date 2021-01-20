@@ -1,0 +1,7 @@
+repo(
+    name = "A",
+    fetch_command = ["/Users/pcloudy/bin/print_repo_path.sh"],
+    fingerprint = "awejfoxawef",
+    repo_deps = [],
+    environ = {},
+)
