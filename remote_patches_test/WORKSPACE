@@ -1,0 +1,9 @@
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+   name = "zlib",
+   urls = ["https://github.com/madler/zlib/archive/v1.2.11.zip"],
+   sha256 = "f5cc4ab910db99b2bdbba39ebbdc225ffc2aa04b4057bc2817f1b94b6978cfc3",
+   strip_prefix = "zlib-1.2.11",
+   remote_patches = ["https://bcr.bazel.build/modules/zlib/1.2.11/patches/add_build_file.patch"],
+)
