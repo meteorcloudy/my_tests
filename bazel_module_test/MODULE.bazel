@@ -1,0 +1,10 @@
+module(
+  name = "my_test_project",
+  version = "0.0.1"
+)
+
+bazel_dep(
+  name = "com_google_protobuf",
+  version = "3.13.0"
+)
+
