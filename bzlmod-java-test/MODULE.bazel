@@ -1,0 +1,18 @@
+module(
+  name = "hello-java",
+  version = "1.0.0",
+  compatibility_level = 1,
+)
+
+bazel_dep(
+  name = "rules_java",
+  version = "0.1.0-pre-toolchain",
+)
+
+override_dep(
+  name = "rules_java",
+  override = local_path_override(
+    path = "/Users/pcloudy/workspace/rules_java",
+  ),
+)
+
