@@ -9,10 +9,3 @@ bazel_dep(
   version = "0.1.0-pre-toolchain",
 )
 
-override_dep(
-  name = "rules_java",
-  override = local_path_override(
-    path = "/Users/pcloudy/workspace/rules_java",
-  ),
-)
-

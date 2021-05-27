@@ -1,16 +1,4 @@
-# load("@rules_java//toolchain:toolchains.bzl", "register_toolchains")
-# 
-# register_toolchains(DEFAULT_SYSTEM_JAVABASE)
+load("@rules_java//toolchain:toolchains.bzl", "local_jdk", "register_java_toolchains")
 
-load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
-load("@bazel_tools//tools/jdk:local_java_repository.bzl", "local_java_repository")
-
-maybe(
-    local_java_repository,
-    name = "local_jdk",
-    java_home = DEFAULT_SYSTEM_JAVABASE,
-    build_file = "@bazel_tools//tools/jdk:jdk.BUILD",
-)
-
-register_toolchains("@rules_java//toolchain")
-register_toolchains("@bazel_tools//tools/jdk:all")
+local_jdk(DEFAULT_SYSTEM_JAVABASE)
+register_java_toolchains()
