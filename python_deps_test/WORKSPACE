@@ -1,0 +1,5 @@
+local_repository(
+  name = "fib_repo",
+  path = "./fib_repo_path",
+)
+
