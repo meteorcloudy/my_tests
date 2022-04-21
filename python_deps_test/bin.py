@@ -5,3 +5,4 @@ from fib import Fib
 
 print("The number is %d" % GetNumber())
 print("Fib(5) == %d" % Fib(5))
+print(__file__)

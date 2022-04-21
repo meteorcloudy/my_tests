@@ -2,4 +2,5 @@
 
 
 def GetNumber():
+  print(__file__)
   return 42
