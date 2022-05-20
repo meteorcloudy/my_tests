@@ -1,0 +1,10 @@
+__main__/_solib_k8/_U_S_S_Cfoo___U/__init__.py 
+__main__/_solib_k8/_U_S_S_Cfoo___U/foo.so /usr/local/google/home/pcloudy/.cache/bazel/_bazel_pcloudy/65dc8e09bf7493a168333a0114f4f8fd/execroot/__main__/bazel-out/k8-fastbuild/bin/_solib_k8/_U_S_S_Cfoo___U/foo.so
+__main__/_solib_k8/__init__.py 
+__main__/_solib_k8/libliba_Uso_U1.so /usr/local/google/home/pcloudy/.cache/bazel/_bazel_pcloudy/65dc8e09bf7493a168333a0114f4f8fd/execroot/__main__/bazel-out/k8-fastbuild/bin/_solib_k8/libliba_Uso_U1.so
+__main__/bin /usr/local/google/home/pcloudy/.cache/bazel/_bazel_pcloudy/65dc8e09bf7493a168333a0114f4f8fd/execroot/__main__/bazel-out/k8-fastbuild/bin/bin
+__main__/bin.py /usr/local/google/home/pcloudy/workspace/my_tests/cc_shared_library_runfile_debug/bin.py
+__main__/external/bazel_tools/tools/python/py3wrapper.sh /usr/local/google/home/pcloudy/.cache/bazel/_bazel_pcloudy/65dc8e09bf7493a168333a0114f4f8fd/execroot/__main__/bazel-out/k8-fastbuild/bin/external/bazel_tools/tools/python/py3wrapper.sh
+__main__/foo.so /usr/local/google/home/pcloudy/.cache/bazel/_bazel_pcloudy/65dc8e09bf7493a168333a0114f4f8fd/execroot/__main__/bazel-out/k8-fastbuild/bin/foo.so
+__main__/liba_so_1.so /usr/local/google/home/pcloudy/.cache/bazel/_bazel_pcloudy/65dc8e09bf7493a168333a0114f4f8fd/execroot/__main__/bazel-out/k8-fastbuild/bin/liba_so_1.so
+bazel_tools/tools/python/py3wrapper.sh /usr/local/google/home/pcloudy/.cache/bazel/_bazel_pcloudy/65dc8e09bf7493a168333a0114f4f8fd/execroot/__main__/bazel-out/k8-fastbuild/bin/external/bazel_tools/tools/python/py3wrapper.sh
