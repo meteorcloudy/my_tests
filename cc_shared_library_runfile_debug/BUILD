@@ -40,13 +40,20 @@ cc_binary(
   linkshared = 1,
 )
 
-# The final py_binary used to create the pip package
-py_binary(
-  name = "bin",
-  srcs = ["bin.py"],
-  data = [
+# A py_library which depends on the C++ extension
+py_library(
+  name = "lib",
+  srcs = ["lib.py"],
+  deps = [
     # Switch between cc_binary and cc_shared_library
     "a_so_1", # With cc_shared_library, foo.so will be in runfiles
     # "a_so_2", # With cc_binary, foo.so will NOT be in runfiles
   ],
+)
+
+# The final sh_binary used to create the pip package
+sh_binary(
+  name = "bin",
+  srcs = ["bin.sh"],
+  data = [":lib"],
 )
