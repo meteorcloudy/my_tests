@@ -13,7 +13,7 @@
     "compatibilityMode": "ERROR"
   },
   "localOverrideHashes": {
-    "bazel_tools": "2ff3f36ef800707bbd82014ec22f1825d58a962292206510eb57616f3d2e81ad"
+    "bazel_tools": "922ea6752dc9105de5af957f7a99a6933c0a6a712d23df6aad16a9c399f7e787"
   },
   "moduleDepGraph": {
     "<root>": {
@@ -181,7 +181,7 @@
       ],
       "deps": {
         "rules_cc": "rules_cc@0.0.9",
-        "rules_java": "rules_java@7.3.0",
+        "rules_java": "rules_java@7.1.0",
         "rules_license": "rules_license@0.0.7",
         "rules_proto": "rules_proto@4.0.0",
         "rules_python": "rules_python@0.4.0",
@@ -282,10 +282,10 @@
         }
       }
     },
-    "rules_java@7.3.0": {
+    "rules_java@7.1.0": {
       "name": "rules_java",
-      "version": "7.3.0",
-      "key": "rules_java@7.3.0",
+      "version": "7.1.0",
+      "key": "rules_java@7.1.0",
       "repoName": "rules_java",
       "executionPlatformsToRegister": [],
       "toolchainsToRegister": [
@@ -318,9 +318,9 @@
         {
           "extensionBzlFile": "@rules_java//java:extensions.bzl",
           "extensionName": "toolchains",
-          "usingModule": "rules_java@7.3.0",
+          "usingModule": "rules_java@7.1.0",
           "location": {
-            "file": "https://bcr.bazel.build/modules/rules_java/7.3.0/MODULE.bazel",
+            "file": "https://bcr.bazel.build/modules/rules_java/7.1.0/MODULE.bazel",
             "line": 19,
             "column": 27
           },
@@ -372,11 +372,11 @@
         "bzlFile": "@bazel_tools//tools/build_defs/repo:http.bzl",
         "ruleClassName": "http_archive",
         "attributes": {
-          "name": "rules_java~7.3.0",
+          "name": "rules_java~7.1.0",
           "urls": [
-            "https://github.com/bazelbuild/rules_java/releases/download/7.3.0/rules_java-7.3.0.tar.gz"
+            "https://github.com/bazelbuild/rules_java/releases/download/7.1.0/rules_java-7.1.0.tar.gz"
           ],
-          "integrity": "sha256-jSrolByAKOuCbkyDrToKy3PTI3hh2c54ijqX1gzqxFs=",
+          "integrity": "sha256-o3pOX2OrgnFuXdau75iO2EYcegC46TYnImKJn1h81OE=",
           "strip_prefix": "",
           "remote_patches": {},
           "remote_patch_strip": 0
@@ -483,7 +483,7 @@
         "rules_python": "rules_python@0.4.0",
         "rules_cc": "rules_cc@0.0.9",
         "rules_proto": "rules_proto@4.0.0",
-        "rules_java": "rules_java@7.3.0",
+        "rules_java": "rules_java@7.1.0",
         "bazel_tools": "bazel_tools@_",
         "local_config_platform": "local_config_platform@_"
       },
