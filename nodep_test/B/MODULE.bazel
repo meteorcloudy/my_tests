@@ -1,0 +1,14 @@
+module(name = "b")
+
+bazel_dep(name = "zlib")
+local_path_override(
+    module_name = "zlib",
+    path = "my_repos/zlib",
+)
+
+bazel_dep(name = "a")
+local_path_override(
+    module_name = "a",
+    path = "../A",
+)
+
